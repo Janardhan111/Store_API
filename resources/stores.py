@@ -3,7 +3,7 @@ from flask.views import MethodView
 from flask import request, abort
 from uuid import uuid4
 from db import stores
-from resources.schemas import StoreCreateSchema, StoreUpdateSchema, StoreDeleteSchema
+from schemas import StoreCreateSchema, StoreUpdateSchema, StoreDeleteSchema
 
 stores_blp = Blueprint("stores",__name__)
 
@@ -28,12 +28,13 @@ class store(MethodView):
             abort(404,"Item not found")
         else:
             return stores[updated_store_json["store_id"]]
+        
 
     @stores_blp.arguments(StoreDeleteSchema)
     def delete(self,delete_store_json):
         try:
-            deleted_store = stores.pop(store_json["store_id"])
-        except:
+            deleted_store = stores.pop(delete_store_json["store_id"])
+        except KeyError as e:
             abort(404,"Item not found")
         else:
             return deleted_store
