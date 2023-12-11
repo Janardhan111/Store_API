@@ -9,18 +9,22 @@ stores_blp = Blueprint("stores",__name__)
 
 @stores_blp.route("/store")
 class store(MethodView):
-
+    @stores_blp.response(200,StoreUpdateSchema(many=True))
     def get(self):
-        return {"stores":stores}
+        return stores.values()
 
     @stores_blp.arguments(StoreCreateSchema)
+    @stores_blp.response(200,StoreUpdateSchema)
     def post(self,store_json):
         store_id = uuid4().hex
         store_json["store_id"] = store_id
         stores[store_id] = store_json
+        store_json["unknown"] = "hello"
+        print(store_json)
         return store_json
 
     @stores_blp.arguments(StoreUpdateSchema)
+    @stores_blp.response(200,StoreUpdateSchema)
     def put(self,updated_store_json):
         if updated_store_json["store_id"] not in stores.keys():
             abort(404,"Item not found")
@@ -29,6 +33,7 @@ class store(MethodView):
         
 
     @stores_blp.arguments(StoreDeleteSchema)
+    @stores_blp.response(200,StoreUpdateSchema)
     def delete(self,delete_store_json):
         try:
             deleted_store = stores.pop(delete_store_json["store_id"])
