@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_smorest import Api
-from resources.stores import stores_blp   
+from resources.stores import stores_blp
+from resources.items import items_blp
 
 app = Flask(__name__)
 
@@ -13,5 +14,6 @@ app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-
 
 api = Api(app)
 api.register_blueprint(stores_blp)
+api.register_blueprint(items_blp)
 
 

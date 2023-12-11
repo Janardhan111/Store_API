@@ -10,3 +10,14 @@ class StoreUpdateSchema(Schema):
 
 class StoreDeleteSchema(Schema):
     store_id = fields.Str(required=True)
+
+class ItemCreateSchema(Schema):
+    name = fields.Str(required=True)
+    item_id = fields.Str(dump_only=True)
+
+class ItemUpdateSchema(Schema):
+    name = fields.Str(required=True)
+    item_id = fields.Str(required=True)
+
+class ItemDeleteSchema(Schema):
+    item_id = fields.Str(required=True)

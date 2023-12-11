@@ -22,12 +22,10 @@ class store(MethodView):
 
     @stores_blp.arguments(StoreUpdateSchema)
     def put(self,updated_store_json):
-        try:
-            stores[updated_store_json["store_id"]] |= updated_store_json
-        except KeyError as e:
+        if updated_store_json["store_id"] not in stores.keys():
             abort(404,"Item not found")
-        else:
-            return stores[updated_store_json["store_id"]]
+        stores[updated_store_json["store_id"]] = updated_store_json
+        return stores[updated_store_json["store_id"]]
         
 
     @stores_blp.arguments(StoreDeleteSchema)
