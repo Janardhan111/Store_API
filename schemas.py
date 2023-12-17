@@ -8,15 +8,11 @@ class StoreSchema(Schema):
 
 class ItemCreateSchema(Schema):
     item_name = fields.Str(required=True)
-    item_id = fields.Str(dump_only=True)
     item_price = fields.Str(required=True)
     store_id = fields.Str(required=True)
 
-class ItemUpdateSchema(Schema):
+class ItemSchema(Schema):
     item_name = fields.Str(required=True)
     item_id = fields.Str(required=True)
     item_price = fields.Str(required=True)
     store_id = fields.Str(required=True)
-
-class ItemDeleteSchema(Schema):
-    item_id = fields.Str(required=True)
