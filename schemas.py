@@ -2,14 +2,9 @@ from marshmallow import Schema, fields
 
 class StoreCreateSchema(Schema):
     store_name = fields.Str(required=True)
-    store_id = fields.Str(dump_only=True)
-
-class StoreUpdateSchema(Schema):
+class StoreSchema(Schema):
     store_id = fields.Str(required=True)
     store_name = fields.Str(required=True)
-
-class StoreDeleteSchema(Schema):
-    store_id = fields.Str(required=True)
 
 class ItemCreateSchema(Schema):
     item_name = fields.Str(required=True)
