@@ -51,6 +51,7 @@ class store_class_with_id(MethodView):
 
     @stores_blp.response(200,PlaneStoreSchema)
     def delete(self,store_id):
+        db.execute_query(f"""DELETE FROM ITEMS WHERE STORE_ID={store_id}""")
         query_output = db.execute_query(f"""DELETE FROM STORES WHERE STORE_ID = {store_id} RETURNING STORE_ID, STORE_NAME""")
         if len(query_output) == 0:
             abort(404,"Store not found")
